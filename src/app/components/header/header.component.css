@@ -1,0 +1,17 @@
+:host{
+    display: block;
+    margin-bottom: 20px;
+}
+.spacer{
+    flex: 1 1 auto;
+
+}
+li {
+    list-style-type: none;
+    display: inline;
+}
+
+a{
+    color:#fff;
+    text-decoration:none;
+}

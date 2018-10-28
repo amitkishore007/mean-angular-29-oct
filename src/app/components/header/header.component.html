@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+    <span>
+    <a [routerLink]="['/']">MeanStack App</a>    
+    </span>
+    <span class="spacer"></span>
+    <ul>
+        <li><a mat-button [routerLink]="['/create']" routerLinkActive="mat-accent" [routerLinkActiveOptions]="{exact:true}">Create Post</a></li>
+        <li><a mat-button [routerLink]="['/']" routerLinkActive="mat-accent" [routerLinkActiveOptions]="{exact:true}">Posts List</a></li>
+    </ul>
+</mat-toolbar>
