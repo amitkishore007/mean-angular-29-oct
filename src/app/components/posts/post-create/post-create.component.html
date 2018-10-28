@@ -2,16 +2,23 @@
 
   <mat-spinner *ngIf='isLoading'></mat-spinner>
 
-  <form (ngSubmit)="onSubmit()" #createPostForm='ngForm' *ngIf="!isLoading">
+  <form (ngSubmit)="onSubmit()" [formGroup]="postCreateForm" *ngIf="!isLoading">
     <mat-form-field>
-      <input matInput placeholder="Title" name='title' [ngModel]="post?.title" required #titleInput='ngModel' minlength='3'>
-      <mat-error *ngIf="titleInput.hasError('required')">
+      <input matInput placeholder="Title" name='title' formControlName='title'>
+      <mat-error *ngIf="postCreateForm.get('title').invalid">
         Title is <strong>required</strong>
       </mat-error>
     </mat-form-field>
+    <div>
+      <button mat-stroked-button type='button' (click)="filePicker.click()">Select Image</button>
+      <input type='file' #filePicker (change)="onImagePick($event)">
+    </div>
+    <div class="img-prev" *ngIf="imagePreview && imagePreview.length !==''">
+      <img [src]="imagePreview" [alt]="postCreateForm.value.title" />
+    </div>
     <mat-form-field class="example-full-width">
-      <textarea matInput placeholder="Enter Post Content" rows='4' name='content' [ngModel]="post?.content" required #contentInput='ngModel'></textarea>
-      <mat-error *ngIf="contentInput.hasError('required')">
+      <textarea matInput placeholder="Enter Post Content" rows='4' name='content' formControlName='content'></textarea>
+      <mat-error *ngIf="postCreateForm.get('content').invalid">
         Content is <strong>required</strong>
       </mat-error>
     </mat-form-field>

@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { PostCreateComponent } from './components/posts/post-create/post-create.component';
 import { PostListComponent } from './components/posts/post-list/post-list.component';
 import { HeaderComponent } from './components/header/header.component';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -22,7 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
-    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule
   ],

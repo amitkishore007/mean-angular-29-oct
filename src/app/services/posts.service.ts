@@ -15,14 +15,16 @@ export class PostsService{
 
     constructor(private http: HttpClient){}
 
-    getPosts() {
-        this.http.get<ApiResult>('http://localhost:3000/api/posts')
+    getPosts(pageSize:number, currPage: number) {
+        const query = `?pagesize=${pageSize}&page=${currPage}`;
+        this.http.get<ApiResult>('http://localhost:3000/api/posts'+query)
                 .pipe(map((result)=>{
                     return result.data.map((post:any)=>{
                        return {
                            id:post._id,
                            title:post.title,
-                           content:post.content
+                           content:post.content,
+                           imagePath: post.imagepath
                        };
                     });
                 }))
@@ -38,11 +40,20 @@ export class PostsService{
         return this.postsUpdated.asObservable();
     }
 
-    createPost(post: Post) {
-        this.http.post<{status:string, data:any}>('http://localhost:3000/api/posts/create', post)
+    createPost(post: {title:string, content:string}, image:File) {
+        const formData = new FormData();
+        formData.append('title',post.title);
+        formData.append('content', post.content);
+        formData.append('image', image, post.title);
+
+        this.http.post<{status:string, data:any}>('http://localhost:3000/api/posts/create', formData)
                 .pipe(map((result) => {
-                    post.id = result.data._id;
-                    return post;
+                    return { 
+                        id: result.data._id, 
+                        title: result.data.title, 
+                        content: result.data.content,
+                        imagePath:result.data.imagepath 
+                    };
                 }))
                 .subscribe((transformedPost)=>{
                     this.posts.push(transformedPost);

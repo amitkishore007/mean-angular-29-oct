@@ -4,3 +4,10 @@ mat-form-field, input{
 mat-spinner{
     margin:auto;
 }
+input[type='file']{
+    visibility: hidden;
+}
+.img-prev img{
+    max-width: 200px;
+    max-height: 200px;;
+}
